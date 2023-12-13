@@ -2,26 +2,61 @@ var express = require('express');
 var router = express.Router();
 const userModel = require("./users");
 const postModel = require("./post");
+const passport = require('passport');
+const localStrategy = require("passport-local");
 
-/* GET home page. */
+passport.use(new localStrategy(userModel.authenticate()))
+
+/* GET home page. signup page*/
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Signup | pinterest' });
 });
 
-router.get("/createuser", async function(req,res){
-  let users = await userModel.create({
-    username: "uniquesonu",
-    password: "its.sonu@123",
-    email: "sonu@gmail.com",
-    fullName: "Sonu Kumar"
-  })
-  res.send(users)
+// login route
+router.get('/login',function(req, res){
+  res.render('login', {title: 'Login | pinterest'});
 })
 
-router.get("/createpost", async function(req, res){
-  let posts = await userModel.create({
-    postText: "Hello everyone, this is my first post."
+// feed route
+router.get("/feed",function(req, res){
+  res.render('feed');
+})
+
+// profile route
+router.get("/profile", isLoggedIn, function(req, res){
+  res.render("profile")
+})
+
+
+router.post("/register", function(req, res){
+  const { username, email, fullname } = req.body;
+  const userData = new userModel({username, email, fullname });
+
+  userModel.register(userData, req.body.password)
+  .then(function(){
+    passport.authenticate("local")(req, res, function(){
+      res.redirect("/profile");
+    })
   })
 })
+
+router.post("/login",passport.authenticate("local",{
+  successRedirect: "/profile",
+  failureRedirect: "/"
+}), function(req, res){
+});
+
+router.get("/logout", function(req, res){
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
+})
+
+function isLoggedIn(req,res, next){
+  if(req.isAuthenticated()) return next();
+  res.redirect("/")
+}
+
 
 module.exports = router;
