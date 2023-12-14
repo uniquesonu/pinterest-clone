@@ -19,20 +19,27 @@ p {
 	font-family: "Avenir";
 }
 .profile_container{
+    width: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: #dcc6c6; */
+    background: #f4efef;
+    padding: 1em;
 }
 
 .profile_container,
-.info {
+.infoxyz {
 	margin: 60px 100px 60px;
 	max-width: 80%;
 	display: flex;
     align-items: center;
     /* justify-content: center; */
 	overflow-x: hidden;
+}
+.infoxyz{
+    margin: auto;
+    /* background: red; */
+    width: 75%;
 }
 
 
@@ -82,9 +89,19 @@ a{
   background-color: #008CBA;
 }
 
-.info {
+.logout{
+    background: red;
+}
+
+.infoxyz {
 	margin-top: -20px;
 	margin-left: 100px;
+}
+.flex{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	align-items: start;
 }
 
 .link_img_wrapper {

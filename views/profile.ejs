@@ -16,16 +16,20 @@
 		</div>
 
 		<div class="profile_desc_section">
-			<h2>Sonu Kumar</h2>
-			<h3>uniquesonu</h3>
+			<h2><%= user.fullname %></h2>
+			<h3><%= user.username %></h3>
 			<p class="description">
-                I am a professional photographer.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, soluta.
             </p>
             <p class="description">
-                I am a professional photographer.
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium itaque perferendis, perspiciatis obcaecati facere in?
 
             </p>
-            <a class="account-setting">Account Setting</a>
+            <div class="interests">
+                <a class="account-setting">Account Setting</a>
+                <a href="/logout" class="account-setting logout">Logout</a>
+                
+            </div>
 
 			<!-- <div class="interests">
 				<span class="interests_item">Technology</span>
@@ -34,16 +38,29 @@
 			</div> -->
 		</div>
 
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <input type="text" name="filecaption" placeholder="Write caption for your post...">
+      <input type="file" name="file" />
+      <input type="submit">
+    </form>
+    
 	</section>
 
 
-	<div class="info">
-		<div class="card" style="width: 18rem;">
-            <img src="https://images.unsplash.com/photo-1702352461386-15dcf064708a?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">All Design</h5>
-            </div>
+	<div class="infoxyz">
+
+    <div class="cards flex">
+      <% user.posts.forEach(function(post){ %>
+        <div class="card" style="width: 18rem;">
+          <img src="/images/uploads/<%= post.image %>" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><%= post.imageText %></h5>
           </div>
+        </div>
+      <% }) %>
+    </div>
+
+		
 	</div>
 
     

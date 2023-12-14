@@ -4,6 +4,7 @@ const userModel = require("./users");
 const postModel = require("./post");
 const passport = require('passport');
 const localStrategy = require("passport-local");
+const upload = require("./multer")
 
 passport.use(new localStrategy(userModel.authenticate()))
 
@@ -14,7 +15,8 @@ router.get('/', function(req, res, next) {
 
 // login route
 router.get('/login',function(req, res){
-  res.render('login', {title: 'Login | pinterest'});
+  // console.log(req.flash("error"));
+  res.render('login', {error: req.flash("error")});
 })
 
 // feed route
@@ -23,11 +25,35 @@ router.get("/feed",function(req, res){
 })
 
 // profile route
-router.get("/profile", isLoggedIn, function(req, res){
-  res.render("profile")
+router.get("/profile", isLoggedIn, async function(req, res){
+  const user = await userModel.findOne({
+    username: req.session.passport.user
+  })
+  .populate('posts')
+  console.log(user)
+  res.render("profile", {user})
 })
 
+// upload route
+router.post("/upload", isLoggedIn, upload.single("file") , async function(req, res){
+  if(!req.file){
+    return res.status(404).send('no files were given');
+  }
+  // res.send("File uploaded successfully")
+  // jo file upload hui hai use save karo as a post and uska post id user ko dena hai and post ko user id
+  const user = await userModel.findOne({username: req.session.passport.user});
+  const post = await postModel.create({
+    image: req.file.filename,
+    imageText: req.body.filecaption,
+    user: user._id,
+  })
 
+  user.posts.push(post._id);
+  await user.save();
+  res.redirect("/profile")
+})
+
+// register a profile
 router.post("/register", function(req, res){
   const { username, email, fullname } = req.body;
   const userData = new userModel({username, email, fullname });
@@ -40,9 +66,11 @@ router.post("/register", function(req, res){
   })
 })
 
+// login a profile
 router.post("/login",passport.authenticate("local",{
   successRedirect: "/profile",
-  failureRedirect: "/"
+  failureRedirect: "/login",
+  failureFlash: true,
 }), function(req, res){
 });
 
