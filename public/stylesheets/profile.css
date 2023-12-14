@@ -103,6 +103,31 @@ a{
 	gap: 20px;
 	align-items: start;
 }
+.upload-file{
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.caption{
+	padding: 10px 20px; 
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.button{
+	/* width: 100%; */
+	padding: 10px 20px;
+	border-radius: 10px;
+	border: none;
+	background: #008CBA;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+}
+
 
 .link_img_wrapper {
 	width: 40px;

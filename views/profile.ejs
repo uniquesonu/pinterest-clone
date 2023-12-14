@@ -31,18 +31,16 @@
                 
             </div>
 
-			<!-- <div class="interests">
-				<span class="interests_item">Technology</span>
-				<span class="interests_item">Management</span>
-				<span class="interests_item">Leadership</span>
-			</div> -->
+            <div class="upload-file">
+              <form action="/upload" method="post" enctype="multipart/form-data">
+                <input class="caption" type="text" name="filecaption" placeholder="Write caption for your post...">
+                <input type="file" name="file" />
+                <input class="button" type="submit">
+              </form>
+            </div>
 		</div>
 
-    <form action="/upload" method="post" enctype="multipart/form-data">
-      <input type="text" name="filecaption" placeholder="Write caption for your post...">
-      <input type="file" name="file" />
-      <input type="submit">
-    </form>
+    
     
 	</section>
 

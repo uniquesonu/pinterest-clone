@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     ref: "Post"
   }],
   dp: {
-    type: String // Assuming 'dp' refers to the user's display picture URL
+    type: String,
   },
   email: {
     type: String,

@@ -20,8 +20,11 @@ router.get('/login',function(req, res){
 })
 
 // feed route
-router.get("/feed",function(req, res){
-  res.render('feed');
+router.get("/feed", async function(req, res){
+  
+  const post = await postModel.find();
+  console.log(post);
+  res.render('feed', {post});
 })
 
 // profile route
