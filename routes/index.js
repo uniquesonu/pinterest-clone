@@ -56,6 +56,20 @@ router.post("/upload", isLoggedIn, upload.single("file") , async function(req, r
   res.redirect("/profile")
 })
 
+// dp upload route
+router.post("/dpupload", isLoggedIn, upload.single("file") , async function(req, res){
+  if(!req.file){
+    return res.status(404).send('no files were given');
+  }
+  // res.send("File uploaded successfully")
+  const user = await userModel.findOne({username: req.session.passport.user});
+  user.dp = req.file.filename;
+  await user.save();
+  res.redirect("/profile")
+  // res.send("dp uploaded")
+}
+)
+
 // register a profile
 router.post("/register", function(req, res){
   const { username, email, fullname } = req.body;

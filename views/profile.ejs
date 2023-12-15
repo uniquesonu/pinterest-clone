@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Profile Page</title>
     <link rel="stylesheet" href="/stylesheets/profile.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
@@ -11,7 +11,14 @@
     <!-- profile container -->
 	<section class="profile_container">
 		<div class="profile_img_section">
-			<img class="profile_img-LG" src="https://cdn.idntimes.com/content-images/community/2020/10/122163576-262420488513552-863075192792965334-n-f95e3dd6d25d3618eb9f1b3b9bcc5796.jpg" />
+      <form action="/dpupload" method="post" enctype="multipart/form-data">
+        <label for="image-upload" class="profile-img-label">
+          <input type="file" name="file" id="image-upload" style="display:none;">
+          <img class="profile_img-LG" src="/images/uploads/<%= user.dp %>"/>
+        </label>
+        <button class="dp-edit" type="submit">Profile picture change</button>
+      </form>
+    </div>
 			
 		</div>
 

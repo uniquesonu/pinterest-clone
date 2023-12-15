@@ -75,6 +75,19 @@ p {
 a{
     color: white;
 }
+.dp-edit{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 10px;
+	background: #43535b;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	font-weight: bold;
+}
 
 .account-setting {
     border: none;
